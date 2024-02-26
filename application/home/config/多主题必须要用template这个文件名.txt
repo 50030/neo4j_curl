@@ -1,0 +1,5 @@
+2022-10-15
+
+如果要在某一个模块中使用多主题，必须要在这个模块下创建config目录，必须在config目录下创建template.php文件，并且在文件中配置view_path = 'template/simple/'，
+
+这样模板主题就会调用 application/home/template/simple/article/list.html模板文件了。

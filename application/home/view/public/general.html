@@ -1,0 +1,25 @@
+{include file="public/header"}	
+<div class="container">
+<div class="row">
+	<div class="col-sm-12">
+		<form name="form2" action="" method="post">
+			<p>合作者登录</p>
+			<p>
+				登录名：<input type="text" name="partner" value="" />
+			</p>
+			<p>
+				登录密码：<input type="password" name="password" value="" />
+			</p>
+			<p>
+				<input type="button" class="btn btn-primary" value="确定" onclick="checkForm()" />
+			</p>
+		</form>
+	</div>
+</div>	
+</div>
+{include file="public/footer"}
+<script>
+function checkForm(){
+	document.forms['form2'].submit();
+}
+</script>

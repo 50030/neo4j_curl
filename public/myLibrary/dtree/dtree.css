@@ -1,0 +1,32 @@
+.dtree {
+    /*width:180px;*/
+    width:100%;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #666;
+    white-space: nowrap;
+     /*overflow:auto;  zaj，在这里没用，在别地方有用,关键 */
+}
+.dtree img {
+    border: 0px;
+    vertical-align: middle;
+}
+.dtree a {
+    color: #333;
+    text-decoration: none;
+}
+.dtree a.node, .dtree a.nodeSel {
+    white-space: nowrap;
+    padding: 1px 2px 1px 2px;
+}
+.dtree a.node:hover, .dtree a.nodeSel:hover {
+    color: #333;
+    text-decoration: underline;
+}
+.dtree a.nodeSel {
+    background-color: #c0d2ec;
+}
+.dtree .clip {
+    /*overflow: hidden;*/ /* zaj 
+    width:100%;*/
+}

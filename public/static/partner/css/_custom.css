@@ -1,0 +1,55 @@
+* {
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    border-radius: 0 !important;
+}
+.logo { 
+	width: 100px;
+	height: 100px;
+}
+
+.header {
+	height: 100px;
+	background: #ccc;
+}
+
+.footer {
+	height:100px;
+	background: #ccc;
+}
+
+.sidebar {
+	padding:20px;
+	background: #ddd;
+}
+.sidebar dl {
+	margin-bottom: 10px;
+}
+.sidebar dt {
+	height: 200%;
+	line-height: 200%;
+}
+.sidebar dd {
+	height: 160%;
+	line-height:160%;
+	padding-left: 10px;
+}
+.sidebar dd a.active {
+	color: blue;
+	font-weight: bold;
+}
+.sidebar dd a:hover {
+	color: red;
+}
+
+
+
+.main {
+	padding: 10px;
+	background: #eee;
+}
+
+
+.top-bar {
+	background: #ccc;
+}

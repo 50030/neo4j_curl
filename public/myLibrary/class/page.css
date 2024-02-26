@@ -1,0 +1,5 @@
+.page_only_use_here{ clear:both; padding:10px; color:#333;font-size:12px; line-height:24px;} 
+.page_only_use_here a { border:1px solid #264F8F;padding:2px 5px 2px 5px;margin:2px;text-decoration:none;color:#333; height:24px; line-height:24px; } 
+.page_only_use_here a:hover { background:#fff; color:#ff0000; text-decoration:none; }
+.page_only_use_here a.actived_page { background:#fff; color:#ff0000; }
+.page_only_use_here span{padding:0 5px 0 5px;margin:2px;background:#09f;color:#fff;border:1px solid #09c;} 

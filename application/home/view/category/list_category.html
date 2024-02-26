@@ -1,0 +1,56 @@
+{include file="public/header"}
+
+<link rel="stylesheet" type="text/css" href="__MYLIBRARY__/dtree/dtree.css" />
+<script type="text/javascript" src="__MYLIBRARY__/dtree/dtree_category_popup_jitTree.js"></script>
+
+<!-- 面包屑路径 -->
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-12">
+				<ol class="breadcrumb">
+					<li><a href="__ROOT__/Index">首页</a></li>
+					<li class="active">族谱列表</li>
+				</ol>
+		</div>
+	</div>
+</div>
+
+<div class="container-fluid">
+<div class="row">
+	<div class="col-sm-12">
+		<table class="table table-responsive">
+                        
+	                            	<tr>
+		                            		<td valign="top" width="20%">
+							        			<div style="border:1px solid #ccc;">
+								        			<div class="padding10">
+								        			    <div class="category_list">
+								        					{$categoryTree|raw}
+								        				</div>
+							        				</div>
+							        			</div>
+						        			</td>
+		    
+	                            	</tr>
+		</table>
+	</div>
+</div>	
+</div>
+{include file="public/footer"}
+
+<script src="__MYLIBRARY__/layer/layer.js"></script>
+<script>
+function jitTree(cat_id){
+	layer.open({
+		type: 2,
+		title: '可视化树',
+		shadeClose: true,
+		shade: 0.2,
+		area: ['95%', '95%'],
+		content: 'jitTree?cat_id=' + cat_id,
+		end: function(){
+			//location.reload();
+		}
+	});
+}
+</script>	

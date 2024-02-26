@@ -1,0 +1,277 @@
+@charset "utf-8";
+@media only screen and (min-width: 768px){html{font-size: 125%!important;} body {max-width: 768px;}}
+@media only screen and (min-width: 992px){html{font-size: 125%!important;} body {max-width: 992px;}}
+@media only screen and (min-width: 1200px){html{font-size: 125%!important;} body {max-width: 1200px;}}
+
+.wrapper {
+	margin: 0 auto;
+}
+
+.top {
+	width: 100%;
+	height: 28px;
+	line-height: 28px;
+	background: url('/static/home/image_template_normal/top_bg.jpg') repeat-x;
+}
+
+.t_wrap {
+	width: 1100px;
+	margin: 0 auto;
+}
+
+.top .t01 {
+	float: left;
+	color: #666;
+}
+
+.top .t02 {
+	float: right;
+}
+
+.top .t02 a {
+	color: #666;
+	padding: 0 4px;
+	float: left;
+	text-decoration: none;
+}
+
+.top .t02 a:hover {
+	color: #333;
+}
+
+#ct100_dl1 {
+	margin: 0;
+	padding: 0;
+}
+
+.rdd {
+	color: #cc1704;
+}
+
+.top .t01 span {
+	padding: 0 4px;
+}
+
+.clear {
+	clear: both;
+	float: none;
+	width: 0;
+	height: 0;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+/**
+修正bootstrap的navbar-fixed-top
+
+.navbar-fixed-top {
+	top: 108px;
+}**/
+
+.logo {
+	width: 960px;
+	padding: 7px 0;
+	overflow: hidden;
+}
+
+.m8 {
+	margin-top: 8px;
+}
+
+.menu {
+	width: 960px;
+	height: 65px;
+	overflow: hidden;
+	background: url("/static/home/image_template_normal/menu_bg.jpg") no-repeat;
+	position: relative;
+}
+
+.m_bg {
+	position: absolute;
+	background: url("/static/home/image_template_normal/menu_bg.jpg") left no-repeat;
+	width: 4px;
+	height: 65px;
+	left: 0;
+	top: 0;
+	overflow: hidden;
+}
+
+.menu ul {
+	margin: 0;
+	padding: 0;
+	padding-top: 4px;
+}
+
+.clearfix {
+	display: block;
+}
+
+.menu li {
+	float: left;
+	width: 120px;
+	background: url("/static/home/image_template_normal/menu_li.jpg") no-repeat left center;
+	height: 29px;
+	line-height: 29px;
+	text-align: center;
+	list-style-type: none;
+}
+
+.menu li a {
+	font-size: 14px;
+	font-weight: bold;
+	color: #fff;
+	display: block;
+	text-decoration: none;
+}
+
+.menu li a:hover {
+	color: #ff6702;
+	background: url("/static/home/image_template_normal/menu_hover.jpg") no-repeat center;
+}
+
+.bar_sliderBox {
+	width: 960px;
+	margin: 0 auto;
+	height: 280px;
+	overflow: hidden;
+	position relative;
+	margin-top: 8px;
+	z-index: 888;
+}
+
+.bar_sliderBox .hd {
+	height: 15px;
+	overflow: hidden;
+	position: absolute;
+	right: 5px;
+	bottom: 5px;
+	z-index: 888;
+}
+
+.bar_sliderBox .hd ul {
+	overflow: hidden;
+	float: left;
+}
+
+.bar_sliderBox .hd ul li {
+	float: left;
+	margin-right: 4px;
+	width: 15px;
+	height: 15px;
+	line-height: 15px;
+	text-align: center;
+	background: #fff;
+	cursor: pointer;
+}
+
+.bar_sliderBox .bd {
+	position: relative;
+	height: 100%;
+	z-index: 0;
+}
+
+
+.footer{
+	margin: 0 auto;
+	text-align: center;
+}
+
+.footer ul {
+	margin: 0;
+	padding: 0;
+}
+.footer ul li {
+	list-style: none;
+	display: inline-block;
+	margin-top: 16px;
+	margin-right: 30px;
+}
+
+.footer dl.link {
+	width: 960px;
+	margin: 0 auto;
+	padding-left: 110px;
+	padding-bottom: 20px;
+	margin-top: 10px;
+	background: url("/static/home/image_template_normal/fnav_bg2.jpg") no-repeat;
+	background-color: #f9f9f9;
+	text-align: left;
+}
+
+
+.footer .link dt {
+	display: block;
+	overflow: hidden;
+	float: left;
+	text-indent: -999999px;
+}
+
+.footer .link dd {
+	display: inline-block;
+}
+
+.footer .link a {
+	color: #666;
+	display:inline-block;
+	margin-top:10px;
+	padding: 0px 10px;
+	border-right: 1px solid #666;
+}
+
+.footer .link a:hover {
+	color: #cc1702;
+	text-decoration: none;
+}
+
+
+.footnav {
+	background: url("/static/home/image_template_normal/index1_94.jpg") repeat-x;
+	height: 36px;
+	line-height: 36px;
+	width: 960px;
+	margin: 0 auto;
+	text-align: center;
+	color: #fff;
+	margin-top: 8px;
+}
+
+.footnav a {
+	color: #fff;
+	text-decoration: none;
+}
+
+.footnav span {
+	padding: 0 2px;
+}
+
+.footwrapper {
+	width: 960px;
+	margin: 0 auto;
+}
+
+
+.YZM {
+	z-index: 100;
+	padding: 0;
+	position: fixed;
+	right:10px;
+	bottom: 10px;
+	float: right;
+	width: 163px;
+}
+
+.YZM .yzmbox img {
+	width: 153px;
+}
+
+.YZM .close {
+	width: 30px;
+	height: 30px;
+	background: url("/static/home/image_template_normal/close.gif") no-repeat;
+	text-indent: -999em;
+	position: absolute;
+	top: -15px;
+	right: -5px;
+	cursor: pointer;
+}
