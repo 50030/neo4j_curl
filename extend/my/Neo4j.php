@@ -75,21 +75,45 @@ class Neo4j {
 	}
 	
 	
-	public function send(){
+	public function statements(){
 			$commit = $this->uri . '/db/' . $this->database . '/tx/commit';
 			
 			$arr['statement'] = $this->query;
 			$arr['parameters'] = $this->params;
 			
 			$arr2['statements'] = [$arr];
-			
 			//JSON_UNESCAPED_UNICODE 不要转换中文
 			//JSON_UNESCAPED_SLASHES 原样，不要转换符号：",[,],'等
 			//JSON_PRETTY_PRINT  美化字符串
 			
 			$statements = json_encode($arr2, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE); 
-		
+			echo $statements;
+			exit;
+	}
+	
+	
+	public function send($query = null, $params = null){
+			if($query !== null){
+				$this->query = $query;
+			}
+			if($params !== null){
+				$this->params = $params;
+			}
 			
+			//处理字符串
+			$commit = $this->uri . '/db/' . $this->database . '/tx/commit';
+			
+			$arr['statement'] = $this->query;
+			$arr['parameters'] = $this->params;
+			
+			$arr2['statements'] = [$arr];
+
+			//JSON_UNESCAPED_UNICODE 不要转换中文
+			//JSON_UNESCAPED_SLASHES 原样，不要转换符号：",[,],'等
+			//JSON_PRETTY_PRINT  美化字符串
+			
+			$statements = json_encode($arr2, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE); 
+
 			//初始化
 			$curl = curl_init();
 			
@@ -112,9 +136,10 @@ class Neo4j {
 			//用POST请求
 			curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'POST');
 			
-			//
+			//是用post提交
 			curl_setopt($curl, CURLOPT_POST, true);
 			
+			//提交接口的参数
 			curl_setopt($curl, CURLOPT_POSTFIELDS, $statements);
 			
 			
@@ -139,7 +164,8 @@ class Neo4j {
 					'msg' => 'success',
 					'http_code' => $http_code,
 					'content_type' => $content_type,
-					'data' => $body['results'][0]['data'],
+					//'data' => $body['results'][0]['data'],
+					'data' => $body['results'],
 				];
 			}
 			return $result;

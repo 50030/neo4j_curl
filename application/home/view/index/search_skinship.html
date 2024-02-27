@@ -1,0 +1,76 @@
+{include file="public/header_popup"}
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-12">
+				<form name="form2" action="" method="post">
+				<table class="table">
+	                    <tbody>
+	                        <tr>
+	                            <td class="span2">有关系人：</td>
+	                            <td>
+	                               <input type="text" name="name" class="essentialtexr" value="" />
+	                               <input type="button" class="btn btn-primary" value="查询" onclick="checkForm();" />
+	                            </td>
+	                        </tr>
+	                    </tbody>
+	                </table>
+				</form>
+		</div>		
+	</div>			
+</div>
+
+{include file="public/footer"}
+<style>
+tbody tr.searchCategory {
+	cursor: pointer;
+}
+tbody tr.searchCategory:hover {
+	background-color: #eee;
+}
+</style>
+
+<script src="__MYLIBRARY__/js/jquery.form.min.js"></script>
+<script src="__MYLIBRARY__/layer/layer.js"></script>
+<script src="__MYLIBRARY__/jscolor/jscolor.min.js"></script>
+<script>
+function checkForm(){
+	var name = $("input[name='name']").val();
+	
+	if(name == ''){
+		layer.msg('请输入关系人名称');
+		$("input[name='name']").focus();
+		return false;
+	}
+
+	$.ajax({
+		url: "searchSkinship",
+		type: "post",
+		data: $("form").serialize(),
+		dataType: "json",
+		success: function(res){
+			//$("tbody tr.searchSkinship").remove();
+			if(res.status == 200){
+				
+				for(i in res.data){
+					$("tbody").append("<tr class='searchCategory'><td></td><td onclick='selectCategory("+res.data[i]['id']+")'>"+res.data[i]['str']+"</td></tr>");
+				}
+				parent.$("#skinship").val(res.skinship);
+				parent.$("#skinship_id").val(res.skinship_id);
+				
+				var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+				parent.layer.close(index);  // 关闭layer
+			}else{
+				alert(res.msg);
+			}
+		}
+	});
+}
+
+function selectCategory(cat_id){
+	parent.$("select option[value='" + cat_id + "']").prop("selected", "selected");
+	
+	var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+	parent.layer.close(index);  // 关闭layer
+}
+</script>
