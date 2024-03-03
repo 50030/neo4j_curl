@@ -1,4 +1,4 @@
-<?php /*a:3:{s:61:"D:\www\zheng\application\home\view\index\search_skinship.html";i:1709002331;s:59:"D:\www\zheng\application\home\view\public\header_popup.html";i:1576653776;s:53:"D:\www\zheng\application\home\view\public\footer.html";i:1576652582;}*/ ?>
+<?php /*a:3:{s:61:"D:\www\zheng\application\home\view\index\search_skinship.html";i:1709009986;s:59:"D:\www\zheng\application\home\view\public\header_popup.html";i:1576653776;s:53:"D:\www\zheng\application\home\view\public\footer.html";i:1576652582;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,17 +65,11 @@ function checkForm(){
 		data: $("form").serialize(),
 		dataType: "json",
 		success: function(res){
-			//$("tbody tr.searchSkinship").remove();
 			if(res.status == 200){
 				
 				for(i in res.data){
-					$("tbody").append("<tr class='searchCategory'><td></td><td onclick='selectCategory("+res.data[i]['id']+")'>"+res.data[i]['str']+"</td></tr>");
+					$("tbody").append("<tr class='searchCategory'><td></td><td onclick='selectItem(" + res.data[i]['id'] + ", \"" + res.data[i]['str'] + "\""  + ")'>" + res.data[i]['str'] + "</td></tr>");
 				}
-				parent.$("#skinship").val(res.skinship);
-				parent.$("#skinship_id").val(res.skinship_id);
-				
-				var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
-				parent.layer.close(index);  // 关闭layer
 			}else{
 				alert(res.msg);
 			}
@@ -83,9 +77,10 @@ function checkForm(){
 	});
 }
 
-function selectCategory(cat_id){
-	parent.$("select option[value='" + cat_id + "']").prop("selected", "selected");
-	
+
+function selectItem(id, str){
+	parent.$("#skinship_id").val(id);
+	parent.$("#skinship").val(str);
 	var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
 	parent.layer.close(index);  // 关闭layer
 }

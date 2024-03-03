@@ -1,4 +1,4 @@
-<?php /*a:3:{s:51:"D:\www\zheng\application\home\view\index\index.html";i:1708069804;s:53:"D:\www\zheng\application\home\view\public\header.html";i:1709119675;s:53:"D:\www\zheng\application\home\view\public\footer.html";i:1576652582;}*/ ?>
+<?php /*a:3:{s:62:"D:\www\zheng\application\home\view\category\list_category.html";i:1708069831;s:53:"D:\www\zheng\application\home\view\public\header.html";i:1709119675;s:53:"D:\www\zheng\application\home\view\public\footer.html";i:1576652582;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,22 +63,41 @@ function logout(){
 
 <!-- 把内容往下挤，避免被主导航遮盖 -->
 <div style="height:60px;"></div>
-	
+
+
+<link rel="stylesheet" type="text/css" href="/myLibrary/dtree/dtree.css" />
+<script type="text/javascript" src="/myLibrary/dtree/dtree_category_popup_jitTree.js"></script>
+
 <!-- 面包屑路径 -->
-<div class="container">
+<div class="container-fluid">
 	<div class="row">
 		<div class="col-sm-12">
 				<ol class="breadcrumb">
-					<li class="active">首页</li>
+					<li><a href="/Index">首页</a></li>
+					<li class="active">族谱列表</li>
 				</ol>
 		</div>
 	</div>
 </div>
 
-<div class="container">
+<div class="container-fluid">
 <div class="row">
-	<div class="col-sm-10">
-		<p>日期：<?php echo htmlentities($date); ?></p>
+	<div class="col-sm-12">
+		<table class="table table-responsive">
+                        
+	                            	<tr>
+		                            		<td valign="top" width="20%">
+							        			<div style="border:1px solid #ccc;">
+								        			<div class="padding10">
+								        			    <div class="category_list">
+								        					<?php echo $categoryTree; ?>
+								        				</div>
+							        				</div>
+							        			</div>
+						        			</td>
+		    
+	                            	</tr>
+		</table>
 	</div>
 </div>	
 </div>
@@ -87,3 +106,20 @@ function logout(){
 <script src="/myLibrary/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
 </body>
 </html>
+
+<script src="/myLibrary/layer/layer.js"></script>
+<script>
+function jitTree(cat_id){
+	layer.open({
+		type: 2,
+		title: '可视化树',
+		shadeClose: true,
+		shade: 0.2,
+		area: ['95%', '95%'],
+		content: 'jitTree?cat_id=' + cat_id,
+		end: function(){
+			//location.reload();
+		}
+	});
+}
+</script>	

@@ -75,7 +75,15 @@ class Neo4j {
 	}
 	
 	
-	public function statements(){
+	public function statements($query = null, $params = null){
+			if($query !== null){
+				$this->query = $query;
+			}
+			if($params !== null){
+				$this->params = $params;
+			}
+			
+			//处理字符串
 			$commit = $this->uri . '/db/' . $this->database . '/tx/commit';
 			
 			$arr['statement'] = $this->query;
@@ -88,7 +96,7 @@ class Neo4j {
 			
 			$statements = json_encode($arr2, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE); 
 			echo $statements;
-			exit;
+			//exit;
 	}
 	
 	
@@ -148,7 +156,7 @@ class Neo4j {
 			$response = curl_exec($curl);              //返回application/json;charset=utf8格式的字符串
 			//$result2 = json_decode($response, false);  //转为对象
 			$body = json_decode($response, true);      //转为数组
-			
+
 			$content_type = curl_getinfo($curl, CURLINFO_CONTENT_TYPE);  //返回的content_type类型，是：application/json;charset=utf-8
 			$http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);   //返回的http状态码
 			

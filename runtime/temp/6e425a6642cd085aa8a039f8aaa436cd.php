@@ -1,7 +1,19 @@
-{include file="public/header_popup"}
+<?php /*a:3:{s:57:"D:\www\zheng\application\home\view\index\edit_person.html";i:1709025999;s:59:"D:\www\zheng\application\home\view\public\header_popup.html";i:1576653776;s:53:"D:\www\zheng\application\home\view\public\footer.html";i:1576652582;}*/ ?>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+	<link rel="stylesheet" href="/myLibrary/bootstrap-3.3.7-dist/css/bootstrap.css" />
+	<link rel="stylesheet" href="/static/mmm/css/admin.css" />
+	<title><?php if(isset($title)): ?><?php echo htmlentities($title); endif; ?></title>
+</head>
+<body>
 
-<link rel="stylesheet" type="text/css" href="__MYLIBRARY__/dtree/dtree.css" />
-<script type="text/javascript" src="__MYLIBRARY__/dtree/dtree.js"></script>
+
+
+<link rel="stylesheet" type="text/css" href="/myLibrary/dtree/dtree.css" />
+<script type="text/javascript" src="/myLibrary/dtree/dtree.js"></script>
 
 <div class="container-fluid">
 
@@ -13,17 +25,17 @@
 	                        <tr>
 	                            <td class="span2">姓名：</td>
 	                            <td>
-	                               <input type="text" name="name" class="essentialtexr" value="" />
+	                               <input type="text" name="name" class="essentialtexr" value="<?php echo htmlentities($edit['name']); ?>" />
 	                            </td>
 	                        </tr>
 	                        <tr>
 	                            <td class="span2">性别：</td>
 	                            <td>
 	                            	<label>
-	                                	<input type="radio" name="gender" class="essentialtexr" value="1" /> 男 &nbsp;&nbsp;
+	                                	<input type="radio" name="gender" class="essentialtexr" value="1" <?php if($edit['gender'] == 1): ?>checked<?php endif; ?> /> 男 &nbsp;&nbsp;
 	                                </label>
 	                            	<label>
-	                                	<input type="radio" name="gender" class="essentialtexr" value="2" /> 女 &nbsp;&nbsp;
+	                                	<input type="radio" name="gender" class="essentialtexr" value="2" <?php if($edit['gender'] == 2): ?>checked<?php endif; ?> /> 女 &nbsp;&nbsp;
 	                                </label>
 	                            </td>
 	                        </tr>
@@ -31,21 +43,21 @@
 	                        <tr>
 	                            <td class="span2">排行：</td>
 	                            <td>
-	                               <input type="text" name="ranking" class="essentialtexr" value="" placeholder="老大，老二，老三，老四，老五，老六" />
+	                               <input type="text" name="ranking" class="essentialtexr" value="<?php echo htmlentities($edit['ranking']); ?>" placeholder="老大，老二，老三，老四，老五，老六" />
 	                            </td>
 	                        </tr>
 	                        
 	                        <tr>
 	                            <td class="span2">备注：</td>
 	                            <td>
-	                               <input type="text" name="remark" value="" placeholder="长子，次子，三子，长女，次女，三女" />
+	                               <input type="text" name="remark" value="<?php echo htmlentities($edit['remark']); ?>" placeholder="长子，次子，三子，长女，次女，三女" />
 	                            </td>
 	                        </tr>
 	                        
 	                        <tr>
 	                            <td class="span2">排序：</td>
 	                            <td>
-	                               <input type="text" name="orderno" class="essentialtexr" value="" /> （非必填项，为数值型）
+	                               <input type="text" name="orderno" class="essentialtexr" value="<?php echo htmlentities($edit['orderno']); ?>" /> （非必填项，为数值型）
 	                            </td>
 	                        </tr>
 	                        
@@ -90,16 +102,20 @@
 	                        </tr>
 	                    </tbody>
 	                </table>
-				
+					<input type="hidden" name="id" value="<?php echo htmlentities($edit['id']); ?>" />
 			</form>		
 	</div>
 </div>	
 </div>
-{include file="public/footer"}
 
-<script src="__MYLIBRARY__/js/jquery.form.min.js"></script>
-<script src="__MYLIBRARY__/layer/layer.js"></script>
-<script src="__MYLIBRARY__/jscolor/jscolor.min.js"></script>
+<script src="/myLibrary/js/jquery.js"></script>
+<script src="/myLibrary/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+</body>
+</html>
+
+<script src="/myLibrary/js/jquery.form.min.js"></script>
+<script src="/myLibrary/layer/layer.js"></script>
+<script src="/myLibrary/jscolor/jscolor.min.js"></script>
 
 <script>	
 function checkForm(){

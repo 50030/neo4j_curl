@@ -1,4 +1,4 @@
-<?php /*a:3:{s:51:"D:\www\zheng\application\home\view\index\index.html";i:1708069804;s:53:"D:\www\zheng\application\home\view\public\header.html";i:1709119675;s:53:"D:\www\zheng\application\home\view\public\footer.html";i:1576652582;}*/ ?>
+<?php /*a:3:{s:51:"D:\www\zheng\application\home\view\index\lists.html";i:1709360519;s:53:"D:\www\zheng\application\home\view\public\header.html";i:1709119675;s:53:"D:\www\zheng\application\home\view\public\footer.html";i:1576652582;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,22 +63,32 @@ function logout(){
 
 <!-- 把内容往下挤，避免被主导航遮盖 -->
 <div style="height:60px;"></div>
-	
+
+
+	<style type="text/css">
+		#cy {
+			height: 610px;
+			width: 610px;
+			border: 1px solid #ccc;
+			background-color: #f8f8f8;
+		}
+	</style>
 <!-- 面包屑路径 -->
-<div class="container">
+<div class="container-fluid">
 	<div class="row">
 		<div class="col-sm-12">
 				<ol class="breadcrumb">
-					<li class="active">首页</li>
+					<li><a href="/Index">首页</a></li>
+					<li class="active">族谱列表</li>
 				</ol>
 		</div>
 	</div>
 </div>
 
-<div class="container">
+<div class="container-fluid">
 <div class="row">
-	<div class="col-sm-10">
-		<p>日期：<?php echo htmlentities($date); ?></p>
+	<div class="col-sm-12">
+		<div id="cy"></div>
 	</div>
 </div>	
 </div>
@@ -87,3 +97,53 @@ function logout(){
 <script src="/myLibrary/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
 </body>
 </html>
+<script src="https://cdn.bootcss.com/cytoscape/3.2.3/cytoscape.js"></script>
+<!--<script src="/myLibrary/cytoscape.js"> //为什么就是不能用这种方式引入？ </script>-->
+
+<script>
+$(document).ready(function(){
+
+	var nodes = [];
+	var edges = [];
+
+	$.ajax({
+		url: 'lists',
+		type: 'post',
+		data: { a: 'a'},
+		dataType: 'json',
+		success: function(res){
+			for(i in res){
+				//nodes.push({ data: {id: res[i]['row'][0], name: res[i]['row'][3], lebal: 'line'} });
+				//nodes.push({ data: {id: res[i]['row'][0], name: res[i]['row'][3], remark: res[i]['row'][4], ranking: res[i]['row'][5]} });
+				nodes.push({ data: {id: res[i]['row'][0], name: res[i]['row'][3] + ' ' + res[i]['row'][4] + ' ' + res[i]['row'][5]} });
+				edges.push({ data: {source: res[i]['row'][0], target: res[i]['row'][1], relationship: res[i]['row'][6]} });
+			}
+			
+			cytoscape({
+				container: document.getElementById('cy'),
+				style: [
+							{
+								//selector: 'node[label = "line"]',
+								selector: 'node',
+								css: {'background-color': '#6fb1fc', 'content': 'data(name)'}
+							},
+							{
+								selector: 'edge',
+								css: {'curve-style': 'bezier','target-arrow-shape': 'triangle','line-color': '#ffaaaa','target-arrow-color': '#ffaaaa','content': 'data(relationship)'}
+							}
+				],
+				
+				elements: {
+					nodes: nodes,
+					
+					edges: edges
+				},
+				
+				layout: {name: 'grid'}
+			});
+			
+		}
+	});
+	
+});
+</script>
