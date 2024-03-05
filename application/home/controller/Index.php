@@ -35,10 +35,10 @@ class Index extends Common {
     
     
     /**
-     * 编辑人
+     * 关系
      * 2024-02-27
      */
-    public function lists(){
+    public function relationship(){
     	if($_POST){
     		$id = input('post.id/d', 0);
     		$arrRelationship = [

@@ -1,4 +1,4 @@
-<?php /*a:3:{s:62:"D:\www\zheng\application\home\view\category\list_category.html";i:1708069831;s:53:"D:\www\zheng\application\home\view\public\header.html";i:1709119675;s:53:"D:\www\zheng\application\home\view\public\footer.html";i:1576652582;}*/ ?>
+<?php /*a:3:{s:62:"D:\www\zheng\application\home\view\category\list_category.html";i:1708069831;s:53:"D:\www\zheng\application\home\view\public\header.html";i:1709642380;s:53:"D:\www\zheng\application\home\view\public\footer.html";i:1576652582;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +24,7 @@
 			
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-						<li <?php if($__CONTROLLER__ .'/'.$__ACTION__ == 'Index/index'): ?>class="active"<?php endif; ?>><a href="">首页 <span class="sr-only">(current)</span></a></li>
+						<li <?php if($__CONTROLLER__ .'/'.$__ACTION__ == 'Index/index'): ?>class="active"<?php endif; ?>><a href="/">首页 <span class="sr-only">(current)</span></a></li>
 						<li <?php if($__CONTROLLER__ .'/'.$__ACTION__ == 'Category/listcategory'): ?>class="active"<?php endif; ?>><a href="/Category/listCategory">族谱</a></li>
 						
 				</ul>

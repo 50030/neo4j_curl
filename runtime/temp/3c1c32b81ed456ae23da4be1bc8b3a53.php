@@ -1,4 +1,4 @@
-<?php /*a:3:{s:51:"D:\www\zheng\application\home\view\index\lists.html";i:1709642567;s:53:"D:\www\zheng\application\home\view\public\header.html";i:1709642505;s:53:"D:\www\zheng\application\home\view\public\footer.html";i:1576652582;}*/ ?>
+<?php /*a:3:{s:58:"D:\www\zheng\application\home\view\index\relationship.html";i:1709642660;s:53:"D:\www\zheng\application\home\view\public\header.html";i:1709642789;s:53:"D:\www\zheng\application\home\view\public\footer.html";i:1576652582;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,7 +25,7 @@
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
 						<li <?php if($__CONTROLLER__ .'/'.$__ACTION__ == 'Index/index'): ?>class="active"<?php endif; ?>><a href="/">首页 <span class="sr-only">(current)</span></a></li>
-						<li <?php if($__CONTROLLER__ .'/'.$__ACTION__ == 'Category/listcategory'): ?>class="active"<?php endif; ?>><a href="/Index/lists">关系</a></li>
+						<li <?php if($__CONTROLLER__ .'/'.$__ACTION__ == 'Category/listcategory'): ?>class="active"<?php endif; ?>><a href="/Index/relationship">关系</a></li>
 						<li <?php if($__CONTROLLER__ .'/'.$__ACTION__ == 'Category/listcategory'): ?>class="active"<?php endif; ?>><a href="/Category/listCategory">族谱</a></li>
 						
 				</ul>
@@ -87,7 +87,7 @@ tbody tr.searchName:hover {
 		<div class="col-sm-12">
 				<ol class="breadcrumb">
 					<li><a href="/Index">首页</a></li>
-					<li class="active">族谱列表</li>
+					<li class="active">关系</li>
 				</ol>
 		</div>
 	</div>

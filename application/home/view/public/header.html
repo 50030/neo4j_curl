@@ -23,7 +23,8 @@
 			
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-						<li {if $__CONTROLLER__ .'/'.$__ACTION__ eq 'Index/index'}class="active"{/if}><a href="__ROOT__">首页 <span class="sr-only">(current)</span></a></li>
+						<li {if $__CONTROLLER__ .'/'.$__ACTION__ eq 'Index/index'}class="active"{/if}><a href="__ROOT__/">首页 <span class="sr-only">(current)</span></a></li>
+						<li {if $__CONTROLLER__ .'/'.$__ACTION__ eq 'Category/listcategory'}class="active"{/if}><a href="__ROOT__/Index/relationship">关系</a></li>
 						<li {if $__CONTROLLER__ .'/'.$__ACTION__ eq 'Category/listcategory'}class="active"{/if}><a href="__ROOT__/Category/listCategory">族谱</a></li>
 						
 				</ul>
