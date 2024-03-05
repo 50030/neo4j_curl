@@ -1,11 +1,11 @@
-<?php /*a:3:{s:57:"D:\www\zheng\application\home\view\index\edit_person.html";i:1709025999;s:59:"D:\www\zheng\application\home\view\public\header_popup.html";i:1576653776;s:53:"D:\www\zheng\application\home\view\public\footer.html";i:1576652582;}*/ ?>
+<?php /*a:3:{s:57:"D:\www\zheng\application\home\view\index\edit_person.html";i:1709474205;s:59:"D:\www\zheng\application\home\view\public\header_popup.html";i:1709119610;s:53:"D:\www\zheng\application\home\view\public\footer.html";i:1576652582;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8" />
 	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
 	<link rel="stylesheet" href="/myLibrary/bootstrap-3.3.7-dist/css/bootstrap.css" />
-	<link rel="stylesheet" href="/static/mmm/css/admin.css" />
+	<link rel="stylesheet" href="/static/home/css/home.css" />
 	<title><?php if(isset($title)): ?><?php echo htmlentities($title); endif; ?></title>
 </head>
 <body>
@@ -23,41 +23,34 @@
 	    			<table class="table">
 	                    <tbody>
 	                        <tr>
+	                            <td class="span2">id：</td>
+	                            <td>
+	                               <?php echo htmlentities($edit['id']); ?>
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                            <td class="span2">世代：</td>
+	                            <td>
+	                               <input type="text" name="generation" class="essentialtexr" value="<?php echo htmlentities($edit['generation']); ?>" />
+	                            </td>
+	                        </tr>
+	                        <tr>
 	                            <td class="span2">姓名：</td>
 	                            <td>
 	                               <input type="text" name="name" class="essentialtexr" value="<?php echo htmlentities($edit['name']); ?>" />
 	                            </td>
 	                        </tr>
 	                        <tr>
-	                            <td class="span2">性别：</td>
+	                            <td class="span2">亲属：</td>
 	                            <td>
-	                            	<label>
-	                                	<input type="radio" name="gender" class="essentialtexr" value="1" <?php if($edit['gender'] == 1): ?>checked<?php endif; ?> /> 男 &nbsp;&nbsp;
-	                                </label>
-	                            	<label>
-	                                	<input type="radio" name="gender" class="essentialtexr" value="2" <?php if($edit['gender'] == 2): ?>checked<?php endif; ?> /> 女 &nbsp;&nbsp;
-	                                </label>
+	                               <input type="text" name="offspring" class="essentialtexr" value="<?php echo htmlentities($edit['offspring']); ?>" placeholder="长子、次子、三子，长女、次女、三女" />
 	                            </td>
 	                        </tr>
 	                        
 	                        <tr>
 	                            <td class="span2">排行：</td>
 	                            <td>
-	                               <input type="text" name="ranking" class="essentialtexr" value="<?php echo htmlentities($edit['ranking']); ?>" placeholder="老大，老二，老三，老四，老五，老六" />
-	                            </td>
-	                        </tr>
-	                        
-	                        <tr>
-	                            <td class="span2">备注：</td>
-	                            <td>
-	                               <input type="text" name="remark" value="<?php echo htmlentities($edit['remark']); ?>" placeholder="长子，次子，三子，长女，次女，三女" />
-	                            </td>
-	                        </tr>
-	                        
-	                        <tr>
-	                            <td class="span2">排序：</td>
-	                            <td>
-	                               <input type="text" name="orderno" class="essentialtexr" value="<?php echo htmlentities($edit['orderno']); ?>" /> （非必填项，为数值型）
+	                               <input type="text" name="ranking" class="essentialtexr" value="<?php echo htmlentities($edit['ranking']); ?>" placeholder="使用数字" />
 	                            </td>
 	                        </tr>
 	                        

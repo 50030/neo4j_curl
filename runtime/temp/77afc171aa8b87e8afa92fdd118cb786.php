@@ -1,4 +1,4 @@
-<?php /*a:3:{s:51:"D:\www\zheng\application\home\view\index\lists.html";i:1709360519;s:53:"D:\www\zheng\application\home\view\public\header.html";i:1709119675;s:53:"D:\www\zheng\application\home\view\public\footer.html";i:1576652582;}*/ ?>
+<?php /*a:3:{s:51:"D:\www\zheng\application\home\view\index\lists.html";i:1709641484;s:53:"D:\www\zheng\application\home\view\public\header.html";i:1709119675;s:53:"D:\www\zheng\application\home\view\public\footer.html";i:1576652582;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,14 +65,21 @@ function logout(){
 <div style="height:60px;"></div>
 
 
-	<style type="text/css">
-		#cy {
-			height: 610px;
-			width: 610px;
-			border: 1px solid #ccc;
-			background-color: #f8f8f8;
-		}
-	</style>
+<style type="text/css">
+	#cy {
+		height: 610px;
+		width: 610px;
+		border: 1px solid #ccc;
+		background-color: #f8f8f8;
+	}
+
+tbody tr.searchName {
+	cursor: pointer;
+}
+tbody tr.searchName:hover {
+	background-color: #eee;
+}
+</style>
 <!-- 面包屑路径 -->
 <div class="container-fluid">
 	<div class="row">
@@ -87,8 +94,30 @@ function logout(){
 
 <div class="container-fluid">
 <div class="row">
+
+
+	<!-- 查询表单 -->
+	<div class="row">
+		<div class="col-sm-12">
+				<form name="form2" class="form-inline" action="" method="GET">
+					<div class="form-group" style="margin:10px;">
+						<input type="text" class="form-control" name="name" value="<?php if(isset($search['name'])): ?><?php echo htmlentities($search['name']); endif; ?>" placeholder="输入姓名" />
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="button" class="btn btn-primary" value="查询" onclick="checkForm()"/>
+					</div>
+				</form>
+				<table class="table">
+	                    <tbody>
+	                        
+	                    </tbody>
+	                </table>
+		</div>
+	</div>
+	<!-- 查询表单 END -->
+	
+	
 	<div class="col-sm-12">
-		<div id="cy"></div>
+		<div id="cy" style="display:none;"></div>
 	</div>
 </div>	
 </div>
@@ -101,7 +130,35 @@ function logout(){
 <!--<script src="/myLibrary/cytoscape.js"> //为什么就是不能用这种方式引入？ </script>-->
 
 <script>
-$(document).ready(function(){
+
+function checkForm(){
+	var name = $("input[name='name']").val();
+	
+	if(name == ''){
+		layer.msg('名称');
+		$("input[name='name']").focus();
+		return false;
+	}
+
+	$.ajax({
+		url: "searchSkinship",
+		type: "post",
+		data: $("form").serialize(),
+		dataType: "json",
+		success: function(res){
+			if(res.status == 200){
+				
+				for(i in res.data){
+					$("tbody").append("<tr class='searchName'><td></td><td onclick='showRelationship(" + res.data[i]['id'] + ")'>" + res.data[i]['str'] + "</td></tr>");
+				}
+			}else{
+				alert(res.msg);
+			}
+		}
+	});
+}
+
+function showRelationship(id){
 
 	var nodes = [];
 	var edges = [];
@@ -109,21 +166,20 @@ $(document).ready(function(){
 	$.ajax({
 		url: 'lists',
 		type: 'post',
-		data: { a: 'a'},
+		data: { id: id},
 		dataType: 'json',
 		success: function(res){
 			for(i in res){
-				//nodes.push({ data: {id: res[i]['row'][0], name: res[i]['row'][3], lebal: 'line'} });
-				//nodes.push({ data: {id: res[i]['row'][0], name: res[i]['row'][3], remark: res[i]['row'][4], ranking: res[i]['row'][5]} });
-				nodes.push({ data: {id: res[i]['row'][0], name: res[i]['row'][3] + ' ' + res[i]['row'][4] + ' ' + res[i]['row'][5]} });
-				edges.push({ data: {source: res[i]['row'][0], target: res[i]['row'][1], relationship: res[i]['row'][6]} });
+				nodes.push({ data: {id: res[i]['id'], name: res[i]['generation'] + ' ' + res[i]['name'] + ' ' + res[i]['offspring']} });
+				edges.push({ data: {source: res[i]['id'], target: res[i]['relationship_id'], relationship: res[i]['relationship']} });
 			}
 			
+			$('#cy').show();
 			cytoscape({
-				container: document.getElementById('cy'),
+				//container: document.getElementById('cy'),
+				container: $('#cy'),
 				style: [
 							{
-								//selector: 'node[label = "line"]',
 								selector: 'node',
 								css: {'background-color': '#6fb1fc', 'content': 'data(name)'}
 							},
@@ -145,5 +201,5 @@ $(document).ready(function(){
 		}
 	});
 	
-});
+}
 </script>

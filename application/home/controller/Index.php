@@ -34,168 +34,57 @@ class Index extends Common {
     }
     
     
-    public function updatePerson(){
-    	$select = Db::name('category')->where('cat_id', '>', 91)->order('cat_id ASC')->select();
-    	//dump($select);
-    	
-    	foreach($select AS $k=>$v){
-    		$id = $v['id2'];
-    		$name = $v['cat_name'];
-dump($v);
-echo "<hr />";		
-    		$findParent = db::name('category')->where('cat_id', '=', $v['pid'])->find();
-dump($findParent);
-echo "<hr />";
-    		if($findParent){
-	    		$fid = $v['pid2'];
-	    		
-	    		$start = strpos($findParent['cat_name'], '世');
-	    		$end = strpos($findParent['cat_name'], '，');
-	    		$fname = substr($findParent['cat_name'], $start + strlen('世'), $end - $start - strlen('世'));
-	    		
-	    		dump($v['cat_name']);
-	    		dump($start);
-	    		dump($end);
-	    		dump($fname);
-	    		echo "<hr />";
-    		}else{
-    			$fid = '';
-    			$fname = '';
-    		}
-    		$mid = '';
-    		$mname = '';
-dump($fid);
-dump($fname);
-//exit;
-    		db::name('category')->where('cat_id', '=', $v['cat_id'])->update(['fid' => $fid, 'fname' => $fname]);
-    	}
-    }
-    
-    
-    public function updateGraph(){
-    	$select = Db::name('category')->where('cat_id', '>', 89)->order('cat_id ASC')->select();
-    	foreach($select AS $k=>$v){
-    		$id = $v['id2'];
-    		$name = $v['cat_name'];
-    		$fid = $v['fid'];
-    		$fname = $v['fname'];
-    		
-
-   		
-    		
-    		
-	    	//$query = 'MERGE (n:person {name: $name, gender: $gender, ranking: $ranking, remark: $remark, orderno: $orderno, id: $id, fid: $fid, fname: $fname}) RETURN n';
-	    	
-	    	
-	    	
-	    	
-	    	$params = [
-	    			
-	    			'id' => $id,
-	    			'name' => $name,
-	    			'fid' => $fid,
-	    			'fname' => $fname,
-	    			
-	    			'gender' => 0,
-	    			'ranking' => '',
-	    			'remark' => '',
-	    			'orderno' => 0,
-	    		];
-dump($query);
-dump($params);
-echo "<hr />";	
-	    	//添加人丁
-	    	//$result = $this->neo4j->send($query, $params);
-	    	
-	    	//添加关系
-			$query = 'MATCH (a:person), (b:person) ';
-			$query .= ' WHERE a.id = $id AND b.id = $skinship_id ';
-			$query .= ' MERGE (a) - [r:HAS_FATHER] -> (b) ';
-			$query .= ' RETURN a, r, b ';
-			$params = [
-				'id' => $id,
-				'skinship_id' => $fid,
-			];
-
-dump($query);
-dump($params);
-echo "<hr />";	
-echo "<hr />";	
-			//$result = $this->neo4j->send($query, $params);
-    	}
-    }
-    
-    
-    //更新有儿子
-    public function updateHasSon(){
-    	$select = Db::name('category')->where('cat_id', '>', 89)->order('cat_id DESC')->select();
-    	foreach($select AS $k=>$v){
-    		dump($v);
-    		dump($v['id2']);
-    		dump($v['fid']);
-    		echo "<hr />";
-    		$id = $v['fid'];
-    		$skinship_id = $v['id2'];
-	    	//添加关系
-			$query = 'MATCH (a:person), (b:person) ';
-			$query .= ' WHERE a.id = $id AND b.id = $skinship_id ';
-			$query .= ' MERGE (a) - [r:HAS_SON] -> (b) ';
-			$query .= ' RETURN a, r, b ';
-			$params = [
-				'id' => $id,
-				'skinship_id' => $skinship_id,
-			];
-
-dump($query);
-dump($params);
-echo "<hr />";	
-echo "<hr />";	
-			//$result = $this->neo4j->send($query, $params);
-    		
-    	}
-    }
-    
-    
-    
     /**
      * 编辑人
      * 2024-02-27
      */
     public function lists(){
     	if($_POST){
+    		$id = input('post.id/d', 0);
     		$arrRelationship = [
-    				'HAS_FATHER'   => '有父亲',
+    				/*'HAS_FATHER'   => '有父亲',
     				'HAS_MOTHER'   => '有母亲',
     				'HAS_SON'      => '有儿子',
     				'HAS_DAUGHTER' => '有女儿',
     				'HAS_HUSBAND'  => '有丈夫',
-    				'HAS_WIFE'     => '有妻子',
+    				'HAS_WIFE'     => '有妻子',*/
+    				'HAS_FATHER'   => '父',
+    				'HAS_MOTHER'   => '母',
+    				'HAS_SON'      => '子',
+    				'HAS_DAUGHTER' => '女',
+    				'HAS_HUSBAND'  => '夫',
+    				'HAS_WIFE'     => '妻',
     			];
-	    	//$query = 'MATCH (n:person) - [r] -> (n2:person) WHERE n.name CONTAINS $search AND n.id > 30 return n.id, n2.id, type(r), n.name, n.remark, n.ranking ORDER by n.id ASC';
-	    	$query = 'match (n:person) -[r] -> (n2:person) where n.name CONTAINS $search AND n.id > 30 return n.id, n.fid ,type(r), n2.id';
+	    	$query = 'match (n:person) - [r] -> (n2:person) where (n.id = $id OR n2.id = $id2 ) ';
+	    	$query .= ' return n.id AS id, n.generation AS generation, n.name AS name, n.offspring AS offspring ';
+	    	$query .= ' ,type(r) AS type, n2.id AS id2 ';
 	    	
 	    	$params = [
-	    		'search' => '本'
+	    		'id' => $id,
+	    		'id2' => $id,
 	    	];
 	    	
 	    	$result = $this->neo4j->send($query, $params);
-	    	$result = $this->neo4j->send($query);
-	    	$arr = $result['data'][0]['data'];
-
+	    	
+	    	$arr = [];
+	    	if(isset($result['data'][0]['data'])){
+	    		$arr = $result['data'][0]['data'];
+	    	}
+	    	
+			$arrNew = [];
 	    	foreach($arr AS $k=>$v){
 	    		unset($arr[$k]['meta']);
 	    		
-	    		$arr[$k]['row'][6] = '';
-	    		foreach($arrRelationship AS $k2=>$v2){
-	    			if($arr[$k]['row'][2] == $k2){
-	    				$arr[$k]['row'][6] = $v2;
-	    			}
-	    		}
+	    		$arrNew[$k]['id'] = $v['row'][0];
+	    		$arrNew[$k]['generation'] = $v['row'][1];
+	    		$arrNew[$k]['name'] = $v['row'][2];
+	    		$arrNew[$k]['offspring'] = $v['row'][3];
+	    		$arrNew[$k]['relationship'] = $v['row'][4];
+	    		$arrNew[$k]['relationship_id'] = $v['row'][5];
+	    		
+	    		$arrNew[$k]['relationship'] = $arrRelationship[$arrNew[$k]['relationship']];
 	    	}
-echo "<pre>";
-print_r($arr);
-exit;
-	    	echo json_encode($arr, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+	    	echo json_encode($arrNew, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 	    	exit;
     	}
     	return view();
@@ -209,11 +98,10 @@ exit;
      */
     public function addPerson(){
     	if($_POST){
-    		$name = input('post.name/s', '', 'trim');
-    		$gender = input('post.gender/d', 0);   //1男，2女
-    		$ranking = input('post.ranking/s', '', 'trim');  //排行
-    		$remark = input('post.remark/s', '', 'trim'); //备注
-    		$orderno = input('post.orderno/d', 0);   //排序
+    		$generation = input('post.generation/s', '', 'trim');//世代
+    		$name = input('post.name/s', '', 'trim');            //名字
+    		$offspring = input('post.offspring/s', '', 'trim');  //亲属
+    		$ranking = input('post.ranking/d', 0);  //排行
     		
     		$skinship = input('post.skinship/s', '', 'trim'); //有亲属，有关系
     		$skinship_id = input('post.skinship_id/d', 0);    //关系人id
@@ -221,13 +109,12 @@ exit;
     		$id = Db::name('serial_id')->insertGetId(['name'=>'a']);
     		$id = intval($id);
     		
-	    	$query = 'MERGE (n:person {name: $name, gender: $gender, ranking: $ranking, remark: $remark, orderno: $orderno, id: $id}) RETURN n';
+	    	$query = 'MERGE (n:person {generation: $generation, name: $name, offspring: $offspring, ranking: $ranking, id: $id}) RETURN n';
 	    	$params = [
+	    			'generation' => $generation,
 	    			'name' => $name,
-	    			'gender' => $gender,
+	    			'offspring' => $offspring,
 	    			'ranking' => $ranking,
-	    			'remark' => $remark,
-	    			'orderno' => $orderno,
 	    			'id' => $id,
 	    		];
 	    	
@@ -248,9 +135,30 @@ exit;
     			];
 
     			$result = $this->neo4j->send($query, $params);
-    			$this->redirect('lists');
-    			exit;
+    			
+    			//有父亲
+    			if($skinship == 'HAS_FATHER'){
+    				$query = 'MATCH (n:person) WHERE id = $id SET fid = $skinship_id RETURN n';
+    				$params = [
+    					'id' => $id,
+    					'fid' => $skinship_id,
+    				];
+    				
+    				$result = $this->neo4j->send($query, $params);
+    			//有母亲
+    			}elseif($skinship == 'HAS_MOTHER'){
+    				$query = 'MATCH (n:person) WHERE id = $id SET mid = $skinship_id RETURN n';
+    				$params = [
+    					'id' => $id,
+    					'mid' => $skinship_id,
+    				];
+    				
+    				$result = $this->neo4j->send($query, $params);
+    			}
     		}
+    			
+			$this->redirect('lists');
+			exit;
     	}
     	return view();
     }
@@ -262,30 +170,28 @@ exit;
      */
     public function editPerson(){
     	if($_POST){
-    		$name = input('post.name/s', '', 'trim');
-    		$gender = input('post.gender/d', 0);   //1男，2女
-    		$ranking = input('post.ranking/s', '', 'trim');  //排行
-    		$remark = input('post.remark/s', '', 'trim'); //备注
-    		$orderno = input('post.orderno/d', 0);   //排序
     		$id = input('post.id/d', 0);
+    		$generation = input('post.generation/s', '', 'trim');//世代
+    		$name = input('post.name/s', '', 'trim');            //名字
+    		$offspring = input('post.offspring/s', '', 'trim');  //亲属
+    		$ranking = input('post.ranking/d', 0);  //排行
     		
     		$skinship = input('post.skinship/s', '', 'trim'); //有亲属，有关系
     		$skinship_id = input('post.skinship_id/d', 0);    //关系人id
     		
     		$query = 'MATCH (n:person) WHERE n.id = $id ';
-    		$query .= ' SET n.name = $name, n.gender = $gender, n.ranking = $ranking, n.remark = $remark, n.orderno = $orderno ';
+    		$query .= ' SET n.generation = $generation, n.name = $name, n.offspring = $offspring, n.ranking = $ranking ';
     		$params = [
+	    			'generation' => $generation,
 	    			'name' => $name,
-	    			'gender' => $gender,
+	    			'offspring' => $offspring,
 	    			'ranking' => $ranking,
-	    			'remark' => $remark,
-	    			'orderno' => $orderno,
 	    			'id' => $id,
 	    		];
 	    		
 	    	//更新
 	    	$result = $this->neo4j->send($query, $params);
-	    	
+	
 	    	//添加关系
 	    	$isIn = in_array($skinship, $this->arrRelatives);
 	    	
@@ -300,9 +206,30 @@ exit;
     			];
 
     			$result = $this->neo4j->send($query, $params);
-    			$this->redirect('lists');
-    			exit;
+    			
+    			//有父亲
+    			if($skinship == 'HAS_FATHER'){
+    				$query = 'MATCH (n:person) WHERE id = $id SET fid = $skinship_id RETURN n';
+    				$params = [
+    					'id' => $id,
+    					'fid' => $skinship_id,
+    				];
+    				
+    				$result = $this->neo4j->send($query, $params);
+    			//有母亲
+    			}elseif($skinship == 'HAS_MOTHER'){
+    				$query = 'MATCH (n:person) WHERE id = $id SET mid = $skinship_id RETURN n';
+    				$params = [
+    					'id' => $id,
+    					'mid' => $skinship_id,
+    				];
+    				
+    				$result = $this->neo4j->send($query, $params);
+    			}
     		}
+    		
+			$this->redirect('lists');
+			exit;
     	}
     	
     	$id = intval($_GET['id']);
@@ -312,10 +239,10 @@ exit;
     	]; 
     	
     	$result = $this->neo4j->send($query, $params);
+
     	if(isset($result['data'][0]['data'])){
     		$arr = $result['data'][0]['data'][0]['row'][0];
     	}
-
     	$this->assign('edit', $arr);
     	return view();
     }
@@ -328,37 +255,18 @@ exit;
     public function searchSkinship(){
     	if($_POST){
 	    	$searchKey = input('post.name/s', '', 'trim');
-	    	$query = 'MATCH (n:person) WHERE n.name CONTAINS $search RETURN n.name AS name, n.gender AS gender, n.remark AS remark, n.ranking AS ranking, n.id AS id  ORDER BY n.orderno ASC';   //CONTAINS 相当于 LIKE查询
+	    	$query = 'MATCH (n:person) WHERE n.name CONTAINS $search RETURN n.generation AS generation, n.name AS name, n.offspring AS offspring, n.ranking AS ranking, n.id AS id  ORDER BY n.id ASC';   //CONTAINS 相当于 LIKE查询
 	    	$params = ['search' => $searchKey]; 
 
 	    	$result = $this->neo4j->send($query, $params);
 
-	    	$arrNew = [];
 	    	foreach($result['data'][0]['data'] AS $k=>$v){
-	    		$str = '';
-
-	    		foreach($v['row'] AS $k2=>$v2){
-	    			if($k2 == 0){
-	    				$str .= $v2;
-	    			}elseif($k2 == 1){
-	    				if($v2 == 1){
-	    					$str .= '（男）';
-	    				}elseif($v2 == 2){
-	    					$str .= '（女）';
-	    				}else{
-	    					$str .= '（'.$v2.'）';
-	    				}
-	    			}elseif($k2 == 2){
-	    				$str .= '' . $v2;
-	    			}elseif($k2 == 3){
-	    				$str .= '， 排行：' . $v2;
-	    			}elseif($k2 == 4){
-	    				$str = 'id：' . $v2 . '， ' . $str;
-	    			}
-	    		}
-	    		$arrNew[] = ['id' => $v2, 'str' => $str];
+            	$arrCombine[$k] = array_combine($result['data'][0]['columns'], $result['data'][0]['data'][$k]['row']);
+		    	$str = 'id: ' . $arrCombine[$k]['id'] . '，' . $arrCombine[$k]['generation'] . ' ' . $arrCombine[$k]['name'] . ' ' . $arrCombine[$k]['offspring'] . '，排行：' . $arrCombine[$k]['ranking'];
+	    		$arrNew[] = ['id' => $arrCombine[$k]['id'], 'str' => $str];
 	    	}
-			echo json_encode(['status' => 200, 'data' => $arrNew]);
+    		
+			echo json_encode(['status' => 200, 'data' => $arrNew], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 			exit;
     	}
     	return view();

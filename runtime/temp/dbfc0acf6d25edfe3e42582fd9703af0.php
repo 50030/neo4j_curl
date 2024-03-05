@@ -1,11 +1,11 @@
-<?php /*a:3:{s:61:"D:\www\zheng\application\home\view\index\search_skinship.html";i:1709009986;s:59:"D:\www\zheng\application\home\view\public\header_popup.html";i:1576653776;s:53:"D:\www\zheng\application\home\view\public\footer.html";i:1576652582;}*/ ?>
+<?php /*a:3:{s:61:"D:\www\zheng\application\home\view\index\search_skinship.html";i:1709474028;s:59:"D:\www\zheng\application\home\view\public\header_popup.html";i:1709119610;s:53:"D:\www\zheng\application\home\view\public\footer.html";i:1576652582;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8" />
 	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
 	<link rel="stylesheet" href="/myLibrary/bootstrap-3.3.7-dist/css/bootstrap.css" />
-	<link rel="stylesheet" href="/static/mmm/css/admin.css" />
+	<link rel="stylesheet" href="/static/home/css/home.css" />
 	<title><?php if(isset($title)): ?><?php echo htmlentities($title); endif; ?></title>
 </head>
 <body>

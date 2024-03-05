@@ -11,41 +11,34 @@
 	    			<table class="table">
 	                    <tbody>
 	                        <tr>
+	                            <td class="span2">id：</td>
+	                            <td>
+	                               {$edit.id}
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                            <td class="span2">世代：</td>
+	                            <td>
+	                               <input type="text" name="generation" class="essentialtexr" value="{$edit.generation}" />
+	                            </td>
+	                        </tr>
+	                        <tr>
 	                            <td class="span2">姓名：</td>
 	                            <td>
 	                               <input type="text" name="name" class="essentialtexr" value="{$edit.name}" />
 	                            </td>
 	                        </tr>
 	                        <tr>
-	                            <td class="span2">性别：</td>
+	                            <td class="span2">亲属：</td>
 	                            <td>
-	                            	<label>
-	                                	<input type="radio" name="gender" class="essentialtexr" value="1" {if $edit.gender == 1}checked{/if} /> 男 &nbsp;&nbsp;
-	                                </label>
-	                            	<label>
-	                                	<input type="radio" name="gender" class="essentialtexr" value="2" {if $edit.gender == 2}checked{/if} /> 女 &nbsp;&nbsp;
-	                                </label>
+	                               <input type="text" name="offspring" class="essentialtexr" value="{$edit.offspring}" placeholder="长子、次子、三子，长女、次女、三女" />
 	                            </td>
 	                        </tr>
 	                        
 	                        <tr>
 	                            <td class="span2">排行：</td>
 	                            <td>
-	                               <input type="text" name="ranking" class="essentialtexr" value="{$edit.ranking}" placeholder="老大，老二，老三，老四，老五，老六" />
-	                            </td>
-	                        </tr>
-	                        
-	                        <tr>
-	                            <td class="span2">备注：</td>
-	                            <td>
-	                               <input type="text" name="remark" value="{$edit.remark}" placeholder="长子，次子，三子，长女，次女，三女" />
-	                            </td>
-	                        </tr>
-	                        
-	                        <tr>
-	                            <td class="span2">排序：</td>
-	                            <td>
-	                               <input type="text" name="orderno" class="essentialtexr" value="{$edit.orderno}" /> （非必填项，为数值型）
+	                               <input type="text" name="ranking" class="essentialtexr" value="{$edit.ranking}" placeholder="使用数字" />
 	                            </td>
 	                        </tr>
 	                        

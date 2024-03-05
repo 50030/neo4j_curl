@@ -88,7 +88,8 @@ class Neo4j {
 			
 			$arr['statement'] = $this->query;
 			$arr['parameters'] = $this->params;
-			
+dump($arr);
+	
 			$arr2['statements'] = [$arr];
 			//JSON_UNESCAPED_UNICODE 不要转换中文
 			//JSON_UNESCAPED_SLASHES 原样，不要转换符号：",[,],'等
